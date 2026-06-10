@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4D Gadget Lab | openGridで作るデスク環境 — 3Dプリントデータ＆活用事例</title>
+    <meta name="description" content="3DプリンターとopenGridフレームワークでデスク環境を最適化。STLデータの無料配布、組み立て方法、活用事例を発信しています。">
+    <!-- Tailwind CSSをCDNで読み込み、開発速度を上げます -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#1a1a1a', // ソリッドな黒
+                        brandGray: '#333333', // 深いグレー
+                        brandLight: '#f5f5f5', // ほんのりグレーがかった白
+                        brandYellow: '#FFD700', // アクセントのサンフラワーイエロー
+                    },
+                    fontFamily: {
+                        sans: ['Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #1a1a1a; color: #f5f5f5; }
+        .bg-pattern {
+            background-image: linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: center center;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-50 bg-brandDark/90 backdrop-blur-sm border-b border-brandGray">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="text-xl font-bold tracking-wider text-brandLight">
+                <span class="text-brandYellow">4D</span> GADGET LAB
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#about" class="hover:text-brandYellow transition-colors">CONCEPT</a>
+                <a href="#features" class="hover:text-brandYellow transition-colors">FEATURES</a>
+                <a href="#showcase" class="hover:text-brandYellow transition-colors">SHOWCASE</a>
+                <a href="#howto" class="hover:text-brandYellow transition-colors">HOW TO</a>
+                <a href="#download" class="text-brandYellow hover:text-white transition-colors">DOWNLOAD</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-4 bg-pattern flex items-center min-h-[80vh]">
+        <div class="max-w-4xl mx-auto text-center z-10">
+            <p class="text-brandYellow text-sm font-bold tracking-widest uppercase mb-4">Open Source 3D Printing Project</p>
+            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight tracking-tight">
+                PRINT IT. SHARE IT.<br>
+                <span class="text-brandYellow">BUILD YOUR OWN GRID.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                3Dプリンターで、暮らしはもっと楽しくなる。<br>
+                openGridフレームワークを使ったデスク環境の最適化を、<br class="hidden md:block">
+                設計データごとオープンに公開していくプロジェクトです。
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#download" class="bg-brandYellow text-brandDark font-bold py-4 px-8 rounded-full hover:bg-yellow-400 transition-all transform hover:scale-105 shadow-[0_0_15px_rgba(255,215,0,0.3)]">
+                    STLデータを入手する（無料）
+                </a>
+                <a href="#showcase" class="bg-transparent border border-brandGray text-brandLight font-bold py-4 px-8 rounded-full hover:border-gray-400 transition-all">
+                    活用事例を見る
+                </a>
+            </div>
+        </div>
+        <!-- 装飾用のグラデーションぼかし -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-2xl max-h-2xl bg-brandYellow/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+    </section>
+
+    <!-- Concept Section -->
+    <section id="about" class="py-20 px-4 bg-brandDark border-t border-brandGray">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div class="w-full md:w-1/2">
+                <!-- ここにメイン画像を配置 -->
+                <div class="aspect-square bg-brandGray rounded-2xl flex items-center justify-center border border-gray-700 overflow-hidden relative">
+                    <span class="text-gray-500 font-medium">ここにデスク全景の写真</span>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brandDark/50 to-transparent pointer-events-none"></div>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 space-y-6">
+                <h2 class="text-brandYellow text-sm font-bold tracking-widest uppercase">Concept</h2>
+                <h3 class="text-3xl md:text-4xl font-bold leading-tight">既製品に、自分を合わせるな。</h3>
+                <p class="text-gray-400 leading-relaxed">
+                    散らかったデスク、収まりの悪いガジェット。それはあなたの片付け能力のせいではなく、収納の「規格」が合っていないからです。<br><br>
+                    このプロジェクトは、David D氏が公開しているオープンソースの収納フレームワーク「<a href="https://www.opengrid.world/" target="_blank" rel="noopener" class="text-brandYellow hover:underline">openGrid</a>」に大きな刺激を受けて始まりました。本家の思想に倣い、ここで設計したパーツのデータもすべて公開します。<br><br>
+                    必要なパーツを、必要な数だけプリントして組み合わせる。あなたのデスクに完璧にフィットする最適解を、一緒に作っていきましょう。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-4 bg-black">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-brandYellow text-sm font-bold tracking-widest uppercase mb-2">Features</h2>
+                <h3 class="text-3xl font-bold">このプロジェクトの3つの柱</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-brandDark p-8 rounded-2xl border border-brandGray hover:border-brandYellow/50 transition-colors">
+                    <div class="w-12 h-12 bg-brandGray rounded-full mb-6 flex items-center justify-center text-brandYellow text-xl font-black">1</div>
+                    <h4 class="text-xl font-bold mb-3">モジュール式規格</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        openGrid互換のグリッド規格により、すべてのパーツがカチャッと完璧に噛み合います。工具は一切不要です。
+                    </p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-brandDark p-8 rounded-2xl border border-brandGray hover:border-brandYellow/50 transition-colors">
+                    <div class="w-12 h-12 bg-brandGray rounded-full mb-6 flex items-center justify-center text-brandYellow text-xl font-black">2</div>
+                    <h4 class="text-xl font-bold mb-3">データはすべて無料公開</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        設計したSTL/STEPデータはすべて無料でダウンロードできます。改造・リミックスも大歓迎。あなたのアイデアで進化させてください。
+                    </p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-brandDark p-8 rounded-2xl border border-brandGray hover:border-brandYellow/50 transition-colors">
+                    <div class="w-12 h-12 bg-brandGray rounded-full mb-6 flex items-center justify-center text-brandYellow text-xl font-black">3</div>
+                    <h4 class="text-xl font-bold mb-3">作って、共有する</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        組み立て動画や設計の意図、失敗談まで包み隠さず発信します。あなたの「作ってみた」もぜひ教えてください。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase Section -->
+    <section id="showcase" class="py-20 px-4 bg-brandDark border-t border-brandGray">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-brandYellow text-sm font-bold tracking-widest uppercase mb-2">Showcase</h2>
+                <h3 class="text-3xl font-bold mb-4">活用事例ギャラリー</h3>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    実際にプリントして使っている様子を紹介します。ゆくゆくは、みなさんの作例もここに掲載していく予定です。
+                </p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- 作例カード（画像とテキストを差し替えて使ってください。増やす場合はこのdivごとコピー） -->
+                <div class="bg-black rounded-2xl border border-brandGray overflow-hidden hover:border-brandYellow/50 transition-colors group">
+                    <div class="aspect-video bg-brandGray flex items-center justify-center">
+                        <span class="text-gray-500 text-sm">作例写真 01</span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold mb-2 group-hover:text-brandYellow transition-colors">ケーブルマネジメント</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">デスク下に這わせていた電源タップとケーブル類を、グリッドで浮かせて整理。</p>
+                    </div>
+                </div>
+                <div class="bg-black rounded-2xl border border-brandGray overflow-hidden hover:border-brandYellow/50 transition-colors group">
+                    <div class="aspect-video bg-brandGray flex items-center justify-center">
+                        <span class="text-gray-500 text-sm">作例写真 02</span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold mb-2 group-hover:text-brandYellow transition-colors">ガジェット収納ラック</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">充電器・SSD・イヤホンの定位置を確保。「どこ置いたっけ」が消滅しました。</p>
+                    </div>
+                </div>
+                <div class="bg-black rounded-2xl border border-brandGray overflow-hidden hover:border-brandYellow/50 transition-colors group">
+                    <div class="aspect-video bg-brandGray flex items-center justify-center">
+                        <span class="text-gray-500 text-sm">作例写真 03</span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold mb-2 group-hover:text-brandYellow transition-colors">工具ウォールマウント</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">3Dプリンター周りの工具を壁面化。作業中に手を伸ばすだけで届きます。</p>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-gray-500 text-sm mt-10">
+                作例は X で <span class="text-brandYellow font-bold">#4DGadgetLab</span> を付けて投稿してください。サイトでご紹介させていただくことがあります。
+            </p>
+        </div>
+    </section>
+
+    <!-- How To Section (YouTube Embed) -->
+    <section id="howto" class="py-20 px-4 bg-black border-t border-brandGray">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-brandYellow text-sm font-bold tracking-widest uppercase mb-2">How To Use</h2>
+            <h3 class="text-3xl font-bold mb-10">組み立ては、直感的に。</h3>
+            <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
+                複雑なマニュアルは必要ありません。ジョイントをはめ込むだけのシンプルな構造です。実際の組み立てプロセスをご覧ください。
+            </p>
+
+            <!-- YouTube Embed Placeholder -->
+            <div class="aspect-video bg-black rounded-xl overflow-hidden border border-brandGray relative shadow-2xl">
+                <!-- 実際の運用時は、以下のdivをYouTubeのiframeタグに置き換えます -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-500">
+                    <svg class="w-16 h-16 mb-4 text-brandGray" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                    <p class="font-medium">ここにYouTubeの埋め込みコード（iframe）を配置</p>
+                </div>
+            </div>
+
+            <!-- 推奨プリント設定 -->
+            <div class="mt-10 bg-brandDark border border-brandGray rounded-2xl p-8 text-left max-w-2xl mx-auto">
+                <h4 class="text-lg font-bold mb-4 text-brandLight">推奨プリント設定</h4>
+                <dl class="grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+                    <dt class="text-gray-500">フィラメント</dt><dd class="text-gray-300">PLA / PETG</dd>
+                    <dt class="text-gray-500">ノズル径</dt><dd class="text-gray-300">0.4mm</dd>
+                    <dt class="text-gray-500">レイヤー高さ</dt><dd class="text-gray-300">0.2mm</dd>
+                    <dt class="text-gray-500">インフィル</dt><dd class="text-gray-300">15%以上</dd>
+                    <dt class="text-gray-500">外壁（ペリメーター）</dt><dd class="text-gray-300">3以上推奨</dd>
+                    <dt class="text-gray-500">サポート</dt><dd class="text-gray-300">不要</dd>
+                </dl>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="py-24 px-4 bg-brandDark border-t border-brandGray">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-brandYellow text-sm font-bold tracking-widest uppercase mb-2">Download</h2>
+            <h3 class="text-3xl md:text-4xl font-black mb-6">データを、手に入れよう。</h3>
+            <p class="text-gray-400 mb-12">
+                すべてのデータを無料で公開しています。プリントして、使って、改造してください。
+            </p>
+
+            <div class="bg-black p-8 md:p-12 rounded-3xl border border-brandGray max-w-2xl mx-auto relative overflow-hidden">
+                <!-- 装飾 -->
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-brandYellow/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                <h4 class="text-2xl font-bold mb-2">4D Gadget Lab パーツライブラリ</h4>
+                <p class="text-brandYellow font-bold text-xl mb-6">FREE <span class="text-sm text-gray-500 font-normal">/ Open Source</span></p>
+                <p class="text-gray-400 text-sm mb-10 leading-relaxed text-left">
+                    【公開データ】<br>
+                    ・ベースプレート（STL / STEP）<br>
+                    ・ストレートジョイント（STL / STEP）<br>
+                    ・L字ジョイント（STL / STEP）<br>
+                    ※新パーツは随時追加していきます。更新情報は X / YouTube でお知らせします。
+                </p>
+
+                <!-- ダウンロードリンク群：href="#" を実際のURLに差し替えてください -->
+                <div class="space-y-3">
+                    <a href="#" target="_blank" rel="noopener" class="block w-full bg-brandYellow text-brandDark font-bold py-3 px-6 rounded hover:bg-yellow-400 transition-colors">
+                        GitHub でデータを見る
+                    </a>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <a href="#" target="_blank" rel="noopener" class="block w-full bg-transparent border border-brandGray text-brandLight font-bold py-3 px-6 rounded hover:border-gray-400 transition-colors">
+                            Printables
+                        </a>
+                        <a href="#" target="_blank" rel="noopener" class="block w-full bg-transparent border border-brandGray text-brandLight font-bold py-3 px-6 rounded hover:border-gray-400 transition-colors">
+                            MakerWorld
+                        </a>
+                    </div>
+                </div>
+
+                <p class="text-gray-600 text-xs mt-8 text-left leading-relaxed">
+                    本プロジェクトのパーツは、David D氏による openGrid（CC BY 4.0）をベースにした派生作品です。データの利用・改変・再配布の際は、各配布ページに記載のライセンス条件に従ってください。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Links Section -->
+    <section id="links" class="py-20 px-4 bg-black border-t border-brandGray">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-brandYellow text-sm font-bold tracking-widest uppercase mb-2">Follow</h2>
+            <h3 class="text-3xl font-bold mb-10">最新情報はこちらで発信中</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                <!-- href="#" を実際のURLに差し替えてください -->
+                <a href="#" target="_blank" rel="noopener" class="bg-brandDark border border-brandGray rounded-2xl p-8 hover:border-brandYellow/50 transition-colors group">
+                    <p class="text-2xl font-black mb-2 group-hover:text-brandYellow transition-colors">YouTube</p>
+                    <p class="text-gray-500 text-sm">組み立て・活用動画</p>
+                </a>
+                <a href="#" target="_blank" rel="noopener" class="bg-brandDark border border-brandGray rounded-2xl p-8 hover:border-brandYellow/50 transition-colors group">
+                    <p class="text-2xl font-black mb-2 group-hover:text-brandYellow transition-colors">X</p>
+                    <p class="text-gray-500 text-sm">日々の進捗・作例紹介</p>
+                </a>
+                <a href="#" target="_blank" rel="noopener" class="bg-brandDark border border-brandGray rounded-2xl p-8 hover:border-brandYellow/50 transition-colors group">
+                    <p class="text-2xl font-black mb-2 group-hover:text-brandYellow transition-colors">GitHub</p>
+                    <p class="text-gray-500 text-sm">設計データ・更新履歴</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 bg-brandDark text-center border-t border-brandGray">
+        <div class="max-w-6xl mx-auto flex flex-col items-center">
+            <div class="text-xl font-bold tracking-wider text-brandLight mb-4">
+                <span class="text-brandYellow">4D</span> GADGET LAB
+            </div>
+            <p class="text-gray-600 text-sm mb-2">
+                &copy; 2026 4D Gadget Lab.
+            </p>
+            <p class="text-gray-600 text-xs max-w-xl leading-relaxed">
+                Inspired by <a href="https://www.opengrid.world/" target="_blank" rel="noopener" class="hover:text-gray-400 underline">openGrid</a> by David D. (CC BY 4.0)<br>
+                本サイトは非公式のファン／派生プロジェクトであり、openGrid公式とは関係ありません。
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
